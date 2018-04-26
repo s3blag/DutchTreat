@@ -9,7 +9,7 @@ namespace DutchTreat.Services
 {
     public class NullMailService : IMailService
     {
-        private ILogger<NullMailService> _logger;
+        private readonly ILogger<NullMailService> _logger;
 
         public NullMailService(ILogger<NullMailService> logger)
         {

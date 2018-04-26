@@ -8,7 +8,7 @@ using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.EntityFrameworkCore.Storage.Internal;
 using System;
 
-namespace DutchTreat.Migrations
+namespace DutchTreat.Data.Migrations
 {
     [DbContext(typeof(DutchContext))]
     [Migration("20180425151729_InitialDb")]

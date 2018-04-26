@@ -2,7 +2,6 @@
 using DutchTreat.Services;
 using DutchTreat.ViewModels;
 using Microsoft.AspNetCore.Mvc;
-using System.Linq;
 
 namespace DutchTreat.Controllers
 {
@@ -19,7 +18,6 @@ namespace DutchTreat.Controllers
 
         public IActionResult Index()
         {
-
             return View();
         }
 
@@ -47,7 +45,7 @@ namespace DutchTreat.Controllers
 
         public IActionResult About()
         {
-            ViewBag.Title = "About.";
+            ViewBag.Title = "About";
             return View();
         }
 

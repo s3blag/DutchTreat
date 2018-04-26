@@ -3,7 +3,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 using System;
 using System.Collections.Generic;
 
-namespace DutchTreat.Migrations
+namespace DutchTreat.Data.Migrations
 {
     public partial class InitialDb : Migration
     {

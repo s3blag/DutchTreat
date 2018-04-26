@@ -3,6 +3,7 @@ using Microsoft.Extensions.Logging;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using Microsoft.EntityFrameworkCore;
 
 namespace DutchTreat.Data
 {
@@ -21,7 +22,6 @@ namespace DutchTreat.Data
         {
             try
             {
-                
                 return _ctx.Products
                            .OrderBy(p => p.Title)
                            .ToList();
@@ -63,5 +63,48 @@ namespace DutchTreat.Data
             }
         }
 
+        public void AddEntity(object model)
+        {
+            _ctx.Add(model);
+        }
+
+        public IEnumerable<Order> GetAllOrders(bool includeItems)
+        {
+            try
+            {
+                if (includeItems)
+                {
+                    return _ctx.Orders
+                               .Include(o => o.Items)
+                               .ThenInclude(i => i.Product)
+                               .ToList();
+                }
+                else
+                {
+                    return _ctx.Orders.ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get all Orders: {ex}");
+                return null;
+            }
+        }
+
+        public Order GetOrderById(int id)
+        {
+            try
+            {
+                return _ctx.Orders
+                           .Include(o => o.Items)
+                           .ThenInclude(i => i.Product)
+                           .FirstOrDefault(o => o.Id == id);
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get product by Id: {ex}");
+                return null;
+            }
+        }
     }
 }
