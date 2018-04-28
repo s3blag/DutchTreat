@@ -10,5 +10,10 @@
       "Default": "Information",
       "Microsoft": "Warning"
     }
+  },
+  "Tokens": {
+    "Key": "ads23e;dasa;asfav;as afa",
+    "Issuer": "localhost",
+    "Audience": "users"
   }
 }

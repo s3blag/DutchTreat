@@ -50,23 +50,6 @@ namespace DutchTreat.Data
            
         }
 
-        public bool SaveAll()
-        {
-            try
-            {
-                return _ctx.SaveChanges() > 0;
-            }
-            catch(Exception ex)
-            {
-                _logger.LogError($"Failed to save changes: {ex}");
-                return false;
-            }
-        }
-
-        public void AddEntity(object model)
-        {
-            _ctx.Add(model);
-        }
 
         public IEnumerable<Order> GetAllOrders(bool includeItems)
         {
@@ -91,20 +74,65 @@ namespace DutchTreat.Data
             }
         }
 
-        public Order GetOrderById(int id)
+        public IEnumerable<Order> GetAllOrdersByUser(string username, bool includeItems)
+        {
+            try
+            {
+                if (includeItems)
+                {
+                    return _ctx.Orders
+                               .Where(o => o.User.UserName == username)
+                               .Include(o => o.Items)
+                               .ThenInclude(i => i.Product)
+                               .ToList();
+                }
+                else
+                {
+                    return _ctx.Orders
+                               .Where(o => o.User.UserName == username)
+                               .ToList();
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to get all Orders: {ex}");
+                return null;
+            }
+        }
+
+        public Order GetOrderById(string userName, int id)
         {
             try
             {
                 return _ctx.Orders
                            .Include(o => o.Items)
                            .ThenInclude(i => i.Product)
-                           .FirstOrDefault(o => o.Id == id);
+                           .FirstOrDefault(o => o.Id == id && o.User.UserName == userName);
             }
             catch (Exception ex)
             {
                 _logger.LogError($"Failed to get product by Id: {ex}");
                 return null;
             }
+        }
+
+
+        public bool SaveAll()
+        {
+            try
+            {
+                return _ctx.SaveChanges() > 0;
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError($"Failed to save changes: {ex}");
+                return false;
+            }
+        }
+
+        public void AddEntity(object model)
+        {
+            _ctx.Add(model);
         }
     }
 }
