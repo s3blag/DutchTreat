@@ -19,4 +19,16 @@
   <ItemGroup>
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="wwwroot\dist\" />
+  </ItemGroup>
+
+  <Target Name="MyPublishScripts" BeforeTargets="BeforePublishing">
+    <Exec Command="npm install" />
+    <Exec Command="bower install" />
+    <Exec Command="gulp" />
+    <Exec Command="ng build" />
+  </Target>
+
 </Project>

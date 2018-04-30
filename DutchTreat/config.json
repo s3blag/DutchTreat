@@ -2,6 +2,7 @@
   "Colors": {
     "Favorite": "blue"
   },
+  "DisableSSL":  false,
   "ConnectionStrings": {
     "DutchConnectionString": "Server=(localdb)\\MSSQLLocalDB;Database=DutchTreatDb; Integrated Security=true; Trusted_Connection=True; MultipleActiveResultSets=true"
   },
